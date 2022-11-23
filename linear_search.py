@@ -1,5 +1,6 @@
 def linear_search(list, target):
     # Return the index position of the target if found, else return None
+    # Runs at O(log n) time
     for i in range(0, len(list)):
         if list[i] == target:
             return i
