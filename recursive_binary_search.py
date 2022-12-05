@@ -1,3 +1,13 @@
+import random
+import time
+
+def naive_search(l, target):
+    # example l = [1, 3, 10, 12]
+    for i in range(len(l)):
+        if l[i] == target:
+            return i
+    return -1
+
 def recursive_binary_search(list, target):
     if len(list) == 0:
         return False
@@ -12,13 +22,22 @@ def recursive_binary_search(list, target):
             else:
                 return recursive_binary_search(list[:midpoint - 1], target)
 
-def verify(result):
-    print('Target found: ', result)
 
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+length = 10000
+# build a sorted list to length 10000
+sorted_list = set()
+while len(sorted_list) < length:
+    sorted_list.add(random.randint(-3 * length, 3 * length))
+sorted_list = sorted(list(sorted_list))
 
-result = recursive_binary_search(numbers, 12)
-verify(result)
+start = time.time()
+for target in sorted_list:
+    naive_search(sorted_list, target)
+end = time.time()
+print('Naive search time: ', (end - start) / length, ' seconds')
 
-result = recursive_binary_search(numbers, 6)
-verify(result)
+start = time.time()
+for target in sorted_list:
+    recursive_binary_search(sorted_list, target)
+end = time.time()
+print('Binary search time: ', (end - start) / length, ' seconds')
